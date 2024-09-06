@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # CS50 Forum Platform
 #### Video Demo:  <URL https://youtu.be/Vfyrf5ZYnTc>
 #### Description:
