@@ -1,0 +1,31 @@
+# Sistema e ambiente
+__pycache__/
+*.py[cod]
+*.env
+*.sqlite3
+venv/
+env/
+
+# Arquivos do Django
+*.log
+*.pot
+*.pyc
+*.pyo
+*.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+*.sql
+*.sqlite3
+*.mo
+staticfiles/
+media/
+
+# Arquivos de banco de dados
+db.sqlite3
+
+# Configurações e credenciais sensíveis
+.env

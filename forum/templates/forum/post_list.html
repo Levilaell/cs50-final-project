@@ -1,0 +1,43 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Post List{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="mt-5">Posts</h1>
+
+        <!-- Formulário de pesquisa e filtro de categoria -->
+        <form method="GET" action="" class="form-inline mb-4">
+            <div class="form-group mr-3">
+                <input type="text" name="search" class="form-control" placeholder="Search posts..." value="{{ request.GET.search }}">
+            </div>
+            <div class="form-group mr-3">
+                <select name="category" class="form-control">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:"s" %}selected{% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+        <div class="list-group mt-4">
+            {% if posts %}
+                {% for post in posts %}
+                    <a href="{% url 'post_detail' post.id %}" class="list-group-item list-group-item-action">
+                        <h5 class="mb-1">{{ post.title }}</h5>
+                        <p class="mb-1">{{ post.body|truncatewords:20 }}</p>
+                        <small>By {{ post.author }} on {{ post.created_at|date:"F j, Y" }} in {{ post.category.name }}</small>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <p>No posts available.</p>
+            {% endif %}
+        </div>
+
+        <a href="{% url 'create_post' %}" class="btn btn-primary mt-4">Create a New Post</a>
+    </div>
+{% endblock %}

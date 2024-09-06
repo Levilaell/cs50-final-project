@@ -1,0 +1,70 @@
+{% extends 'forum/base.html' %}
+
+{% block title %}Post Details{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mt-5">{{ post.title }}</h2>
+
+                <div class="post_details mt-4">
+                    <p><strong>Author:</strong> {{ post.author }}</p>
+                    <p><strong>Category:</strong> {{ post.category.name }}</p>
+                    <p><strong>Published on:</strong> {{ post.created_at|date:"F j, Y" }}</p>
+                    <p>{{ post.body }}</p>
+                </div>
+
+                <hr>
+
+                <!-- Seção de comentários -->
+                <h4>Comments ({{ comments.count }})</h4>
+
+                <ul class="list-group mt-3 mb-4">
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <li class="list-group-item">
+                                <p><strong>{{ comment.author }}</strong> - {{ comment.created_at|date:"F j, Y H:i" }}</p>
+                                <p>{{ comment.body }}</p>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <p>No comments yet. Be the first to comment!</p>
+                    {% endif %}
+                </ul>
+
+                <!-- Formulário de comentário -->
+                {% if user.is_authenticated %}
+                    <h5>Add a Comment</h5>
+                    <form method="POST" action="{% url 'create_comment' post.id %}">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_body">Your Comment</label>
+                            {{ comment_form.body }}
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Comment</button>
+                    </form>
+                {% else %}
+                    <p><a href="{% url 'login' %}">Login</a> to post a comment.</p>
+                {% endif %}
+
+                <a href="{% url 'post_list' %}" class="btn btn-secondary mt-4">Back to Posts</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+{% endblock content %}
