@@ -56,6 +56,7 @@ Category: Stores different discussion categories. Each post belongs to one categ
 Post: Represents individual discussion posts. Each post has a title, body, author, creation date, and belongs to a category.
 
 Comment: Represents comments made on posts. Each comment has an author, body, timestamp, and is linked to a specific post. The models establish relationships between each other using Django’s foreign key fields. For example, a Post is linked to a Category, and a Comment is linked to a Post.
+
 =======
 # cs50-final-project
 >>>>>>> 4801fb563556983cd286184f9ef1189048e8a653
